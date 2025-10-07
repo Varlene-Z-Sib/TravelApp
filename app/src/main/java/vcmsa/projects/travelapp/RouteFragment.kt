@@ -16,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import vcmsa.projects.travelapp.data.model.Trip
 
 class RouteFragment : Fragment() {
 
@@ -30,7 +31,8 @@ class RouteFragment : Fragment() {
     private val auth = FirebaseAuth.getInstance()
     private val recentSearches = mutableListOf<String>()
 
-    private val apiKey = "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjdjOGUzMWU0YmE0YjQzMDlhMTU5OGJiNGYzM2M1MzE5IiwiaCI6Im11cm11cjY0In0="
+    private val apiKey =
+        "eyJvcmciOiI1YjNjZTM1OTc4NTExMTAwMDFjZjYyNDgiLCJpZCI6IjdjOGUzMWU0YmE0YjQzMDlhMTU5OGJiNGYzM2M1MzE5IiwiaCI6Im11cm11cjY0In0="
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,29 +61,28 @@ class RouteFragment : Fragment() {
                 searchCoordinates(start, end)
                 saveRecentSearch(start, end)
             } else {
-                Toast.makeText(requireContext(), getString(R.string.enter_both), Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.enter_both), Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
         return view
     }
 
-    // 🔹 Save search to Firestore
+    // Save search (simple string) to Firestore
     private fun saveRecentSearch(start: String, end: String) {
         val userId = auth.currentUser?.uid ?: return
         val search = "$start → $end"
-
         val data = hashMapOf(
             "search" to search,
             "timestamp" to System.currentTimeMillis()
         )
-
         db.collection("users").document(userId)
             .collection("recentSearches")
             .add(data)
     }
 
-    // 🔹 Load recents from Firestore
+    // Load recents from Firestore
     private fun loadRecents() {
         val userId = auth.currentUser?.uid ?: return
 
@@ -103,7 +104,7 @@ class RouteFragment : Fragment() {
             }
     }
 
-    // 🔹 Convert names → coords
+    // Convert names → coords
     private fun searchCoordinates(start: String, end: String) {
         RetrofitClient.geoApi.searchLocation(apiKey, start).enqueue(object : Callback<GeoResponse> {
             override fun onResponse(call: Call<GeoResponse>, response: Response<GeoResponse>) {
@@ -111,21 +112,26 @@ class RouteFragment : Fragment() {
                 if (startCoords != null) {
                     val startLonLat = "${startCoords[0]},${startCoords[1]}"
 
-                    RetrofitClient.geoApi.searchLocation(apiKey, end).enqueue(object : Callback<GeoResponse> {
-                        override fun onResponse(call: Call<GeoResponse>, response: Response<GeoResponse>) {
-                            val endCoords = response.body()?.features?.firstOrNull()?.geometry?.coordinates
-                            if (endCoords != null) {
-                                val endLonLat = "${endCoords[0]},${endCoords[1]}"
-                                getRoute(startLonLat, endLonLat)
-                            } else {
-                                routeResult.text = getString(R.string.no_result_end)
+                    RetrofitClient.geoApi.searchLocation(apiKey, end)
+                        .enqueue(object : Callback<GeoResponse> {
+                            override fun onResponse(
+                                call: Call<GeoResponse>,
+                                response: Response<GeoResponse>
+                            ) {
+                                val endCoords =
+                                    response.body()?.features?.firstOrNull()?.geometry?.coordinates
+                                if (endCoords != null) {
+                                    val endLonLat = "${endCoords[0]},${endCoords[1]}"
+                                    getRoute(start, end, startLonLat, endLonLat)
+                                } else {
+                                    routeResult.text = getString(R.string.no_result_end)
+                                }
                             }
-                        }
 
-                        override fun onFailure(call: Call<GeoResponse>, t: Throwable) {
-                            routeResult.text = "End lookup failed: ${t.message}"
-                        }
-                    })
+                            override fun onFailure(call: Call<GeoResponse>, t: Throwable) {
+                                routeResult.text = "End lookup failed: ${t.message}"
+                            }
+                        })
                 } else {
                     routeResult.text = getString(R.string.no_result_start)
                 }
@@ -137,17 +143,26 @@ class RouteFragment : Fragment() {
         })
     }
 
-    // 🔹 Fetch route
-    private fun getRoute(start: String, end: String) {
+    // Fetch route and save trip
+    private fun getRoute(startName: String, endName: String, start: String, end: String) {
         RetrofitClient.routeApi.getRoute(apiKey, start, end)
             .enqueue(object : Callback<RouteResponse> {
                 override fun onResponse(call: Call<RouteResponse>, response: Response<RouteResponse>) {
                     if (response.isSuccessful) {
                         val summary = response.body()?.features?.firstOrNull()?.properties?.summary
                         summary?.let {
-                            val distanceKm = it.distance / 1000
-                            val durationMin = it.duration / 60
-                            routeResult.text = getString(R.string.route_summary, distanceKm, durationMin)
+                            val distanceKm = it.distance / 1000.0   // Double
+                            val durationMin = it.duration / 60.0    // Double
+
+                            // PASS Doubles (not preformatted Strings) to getString
+                            routeResult.text = getString(
+                                R.string.route_summary,
+                                distanceKm,
+                                durationMin
+                            )
+
+                            // Save trip (uses data.model.Trip)
+                            saveTripResult(startName, endName, distanceKm, durationMin)
                         }
                     } else {
                         routeResult.text = "Error: ${response.message()}"
@@ -159,9 +174,32 @@ class RouteFragment : Fragment() {
                 }
             })
     }
+
+    // Save trip result to Firestore (uses data.model.Trip)
+    private fun saveTripResult(
+        start: String,
+        end: String,
+        distanceKm: Double,
+        durationMin: Double
+    ) {
+        val userId = auth.currentUser?.uid ?: return
+        val trip = Trip(startDate = start, endDate = end, distanceKm = distanceKm, durationMin = durationMin)
+
+        db.collection("users")
+            .document(userId)
+            .collection("trips")
+            .add(trip)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Trip saved!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Save failed: ${e.message}", Toast.LENGTH_SHORT)
+                    .show()
+            }
+    }
 }
 
-// 🔹 Simple RecyclerView Adapter
+// Simple RecyclerView Adapter
 class RecentAdapter(private val items: List<String>) :
     RecyclerView.Adapter<RecentAdapter.ViewHolder>() {
 

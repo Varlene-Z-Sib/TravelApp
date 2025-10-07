@@ -1,81 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@android:color/white">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvRoute"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="Cape Town → Durban"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"/>
 
-        <TextView
-            android:id="@+id/startLocationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="From: Location"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#212121" />
+    <TextView
+        android:id="@+id/tvDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1200 km | 13h"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"/>
 
-        <TextView
-            android:id="@+id/endLocationText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="To: Location"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:layout_marginTop="4dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp">
-
-            <TextView
-                android:id="@+id/distanceText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Distance: --"
-                android:textSize="14sp"
-                android:textColor="#616161" />
-
-            <TextView
-                android:id="@+id/durationText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Duration: --"
-                android:textSize="14sp"
-                android:textColor="#616161" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/dateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="12sp"
-            android:textColor="#9E9E9E"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/weatherText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Weather"
-            android:textSize="12sp"
-            android:textColor="#1976D2"
-            android:layout_marginTop="4dp"
-            android:visibility="gone" />
-
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+</LinearLayout>

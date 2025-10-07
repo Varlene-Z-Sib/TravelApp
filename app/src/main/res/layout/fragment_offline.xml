@@ -5,21 +5,9 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:background="?attr/colorBackground">
 
-    <!-- Top AppBar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/topAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-        app:title="Offline Mode"
-        app:titleTextColor="@android:color/white"
-        app:navigationIcon="@drawable/ic_travel_logo"
-        app:menu="@menu/top_app_bar_menu" />
-
-    <!-- Page Name under Toolbar -->
+    <!-- Page Title -->
     <TextView
         android:id="@+id/pageTitle"
         android:layout_width="match_parent"
@@ -28,9 +16,9 @@
         android:text="Offline Mode"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/primaryColor" />
+        android:textColor="?attr/colorPrimary" />
 
-    <!-- Content Scroll -->
+    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -38,77 +26,59 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/routesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:divider="?android:attr/dividerVertical"
+            android:showDividers="middle"
+            android:dividerPadding="8dp">
 
+            <!-- Offline info -->
             <TextView
                 android:id="@+id/offlineInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Recent searches and routes available offline"
                 android:textSize="16sp"
-                android:textColor="@color/textPrimary"
-                android:layout_marginBottom="12dp"/>
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="12dp" />
 
-            <!-- Hardcoded Recent Routes -->
+            <!-- Example static card (your dynamic cards should look like this) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
+                android:layout_marginTop="4dp"
+                app:cardElevation="4dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardBackgroundColor="?attr/colorSurface">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="📍 Park Station ➝ Sandton"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
-            </com.google.android.material.card.MaterialCardView>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                    <TextView
+                        android:id="@+id/routeTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Route: New York → Boston"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="📍 Rosebank ➝ OR Tambo"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="📍 Pretoria ➝ Midrand"
-                    android:textSize="16sp"
-                    android:textColor="@android:color/black"/>
+                    <TextView
+                        android:id="@+id/routeDetails"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Saved on Sep 28, 2025"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurfaceVariant" />
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
-
-    <!-- Bottom Navigation -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"/>
-
 </LinearLayout>

@@ -10,6 +10,23 @@
     <string name="user_name">Igama</string>
     <string name="user_email">I-imeyili</string>
 
+    <!-- Weather Page -->
+    <string name="weather_info_title">Ulwazi Lwesimo Sezulu</string>
+    <string name="enter_city">Faka idolobha</string>
+    <string name="check_weather">Hlola isimo sezulu</string>
+    <string name="weather_placeholder">Imininingwane yesimo sezulu izovela lapha</string>
+
+    <string name="RECENT">Umlando Wokuhamba</string>
+    <string name="search_by_city">Sesha ngeDolobha</string>
+    <string name="no_trips_found">Azikho izinkambo ezitholakele</string>
+    <string name="failed_load_trips">Yehlulekile ukulayisha izinkambo</string>
+
+
+    <!-- Example Weather Results -->
+    <string name="jhb_weather">Johannesburg - 25°C, Kucacile</string>
+    <string name="dbn_weather">Durban - 28°C, Kunamafu</string>
+    <string name="cpt_weather">Cape Town - 18°C, Kunomoya</string>
+
     <!-- Languages -->
     <string-array name="languages">
         <item>IsiNgisi</item>
@@ -40,9 +57,7 @@
     <string name="find_route">Thola Umzila</string>
     <string name="route_placeholder">Imininingwane yomzila izovela lapha</string>
     <string name="recent_searches">Izindawo Ezisanda Kufunwa</string>
-    <string name="recent_1">📍 Braamfontein → Sandton</string>
-    <string name="recent_2">📍 Soweto → Rosebank</string>
-    <string name="recent_3">📍 Pretoria → OR Tambo</string>
+
 
     <string name="enter_both">Faka izindawo zombili</string>
     <string name="no_result_start">Ayitholakalanga indawo yokuqala</string>

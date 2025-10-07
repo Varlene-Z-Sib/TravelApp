@@ -6,4 +6,6 @@
     <color name="secondaryColor">#00BCD4</color>
     <color name="backgroundColor">#F5F5F5</color>
     <color name="textPrimary">#212121</color>
+    <color name="gray">#BDBDBD</color>
+
 </resources>

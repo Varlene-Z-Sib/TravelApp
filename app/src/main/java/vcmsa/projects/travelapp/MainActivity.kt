@@ -59,6 +59,11 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(RouteFragment())
                     true
                 }
+                R.id.nav_history ->{
+                    replaceFragment(TripHistoryFragment())
+                    true
+                }
+
                 R.id.nav_profile -> {
                     replaceFragment(SettingsFragment())
                     true

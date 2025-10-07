@@ -11,6 +11,8 @@
         <item>English</item>
         <item>Zulu</item>
 
+
+
     </string-array>
     <string name="invalid_coords">Invalid coordinates</string>
 
@@ -41,12 +43,29 @@
     <string name="find_route">Find Route</string>
     <string name="route_placeholder">Route details will appear here</string>
     <string name="recent_searches">Recent Searches</string>
-    <string name="recent_1">📍 Braamfontein → Sandton</string>
-    <string name="recent_2">📍 Soweto → Rosebank</string>
-    <string name="recent_3">📍 Pretoria → OR Tambo</string>
+
     <string name="enter_both">Enter both locations</string>
     <string name="no_result_start">Could not find start location</string>
     <string name="no_result_end">Could not find destination</string>
-    <string name="route_summary">Distance: %.2f km\nDuration: %.1f min</string>
+    <string name="route_summary">%1$.2f km • %2$.1f min</string>
+
+
+
+    <string name="search_by_city">Search by city</string>
+    <string name="no_trips_found">No trips found</string>
+    <string name="failed_load_trips">Failed to load trips</string>
+    <string name="RECENT">Recent Trips</string>
+
+    <!-- Weather Page -->
+    <string name="weather_info_title">Weather Information</string>
+    <string name="enter_city">Enter City</string>
+    <string name="check_weather">Check Weather</string>
+    <string name="weather_placeholder">Weather details will appear here</string>
+
+
+    <!-- Example Weather Results -->
+    <string name="jhb_weather">Johannesburg - 25°C, Clear</string>
+    <string name="dbn_weather">Durban - 28°C, Cloudy</string>
+    <string name="cpt_weather">Cape Town - 18°C, Windy</string>
 
 </resources>

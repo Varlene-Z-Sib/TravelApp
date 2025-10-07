@@ -4,51 +4,61 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import vcmsa.projects.travelapp.data.entity.Trip
+import vcmsa.projects.travelapp.data.model.Trip
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
-class TripAdapter(private var trips: List<Trip>) : RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
-    
-    private val dateFormat = SimpleDateFormat("MMM dd, yyyy HH:mm", Locale.getDefault())
-    
+class TripAdapter : ListAdapter<Trip, TripAdapter.TripViewHolder>(DiffCallback()) {
+
     class TripViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val startLocationText: TextView = view.findViewById(R.id.startLocationText)
-        val endLocationText: TextView = view.findViewById(R.id.endLocationText)
-        val distanceText: TextView = view.findViewById(R.id.distanceText)
-        val durationText: TextView = view.findViewById(R.id.durationText)
-        val dateText: TextView = view.findViewById(R.id.dateText)
-        val weatherText: TextView = view.findViewById(R.id.weatherText)
+        private val tvRoute: TextView = view.findViewById(R.id.tvRoute)
+        private val tvDetails: TextView = view.findViewById(R.id.tvDetails)
+
+        fun bind(trip: Trip) {
+            // Your RouteFragment saves startDate and endDate as city names
+            val startCity = trip.startDate ?: "Unknown"
+            val endCity = trip.endDate ?: "Unknown"
+            tvRoute.text = "$startCity → $endCity"
+
+            // Compute distance and duration
+            val totalMin = trip.durationMin?.roundToInt() ?: 0
+            val hours = totalMin / 60
+            val minutes = totalMin % 60
+            val distanceStr = String.format(Locale.getDefault(), "%.2f", trip.distanceKm ?: 0.0)
+
+            // Format timestamp if available
+            val dateStr = trip.timestamp?.let {
+                SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(Date(it))
+            } ?: ""
+
+            val detailText = if (dateStr.isNotEmpty())
+                "$distanceStr km • ${hours}h ${minutes}m • $dateStr"
+            else
+                "$distanceStr km • ${hours}h ${minutes}m"
+
+            tvDetails.text = detailText
+        }
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_trip, parent, false)
         return TripViewHolder(view)
     }
-    
+
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
-        val trip = trips[position]
-        
-        holder.startLocationText.text = "From: ${trip.startLocation}"
-        holder.endLocationText.text = "To: ${trip.endLocation}"
-        holder.distanceText.text = "Distance: ${trip.distance}"
-        holder.durationText.text = "Duration: ${trip.duration}"
-        holder.dateText.text = dateFormat.format(Date(trip.createdAt))
-        
-        if (trip.weatherCondition != null && trip.temperature != null) {
-            holder.weatherText.text = "Weather: ${trip.weatherCondition}, ${trip.temperature}"
-            holder.weatherText.visibility = View.VISIBLE
-        } else {
-            holder.weatherText.visibility = View.GONE
-        }
+        holder.bind(getItem(position))
     }
-    
-    override fun getItemCount() = trips.size
-    
-    fun updateTrips(newTrips: List<Trip>) {
-        trips = newTrips
-        notifyDataSetChanged()
+
+    class DiffCallback : DiffUtil.ItemCallback<Trip>() {
+        override fun areItemsTheSame(oldItem: Trip, newItem: Trip): Boolean =
+            oldItem.timestamp == newItem.timestamp
+
+        override fun areContentsTheSame(oldItem: Trip, newItem: Trip): Boolean =
+            oldItem == newItem
     }
 }
