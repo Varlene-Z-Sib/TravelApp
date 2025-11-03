@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">Reisbeplanner</string>
+
+    <string-array name="trip_history_array">
+        <item>Johannesburg → Kaapstad (12 Aug 2025)</item>
+        <item>Pretoria → Durban (5 Aug 2025)</item>
+        <item>Sandton → OR Tambo Lughawe (1 Aug 2025)</item>
+        <item>Midrand → Rosebank (28 Jul 2025)</item>
+        <item>Kaapstad → Stellenbosch (20 Jul 2025)</item>
+    </string-array>
+
+    <string-array name="languages">
+        <item>Engels</item>
+        <item>Zulu</item>
+        <item>Afrikaans</item>
+    </string-array>
+
+    <!-- Algemene etikette -->
+    <string name="settings_title">Instellings</string>
+    <string name="dark_mode">Donkermodus</string>
+    <string name="notifications">Kennisgewings</string>
+    <string name="language">Taal</string>
+    <string name="user_name">Naam</string>
+    <string name="user_email">E-pos</string>
+
+    <string name="notifications_enabled">Kennisgewings aangeskakel</string>
+    <string name="notifications_disabled">Kennisgewings afgeskakel</string>
+
+    <string name="welcome_text">Welkom by GIDS</string>
+    <string name="route_planning">🚗 Roetebeplanning</string>
+    <string name="weather_info">☀️ Weer Inligting</string>
+    <string name="trip_history">📖 Reisgeskiedenis</string>
+    <string name="offline_mode">📶 Vanlynmodus</string>
+
+    <string name="start_location">Beginplek</string>
+    <string name="destination">Bestemming</string>
+    <string name="find_route">Vind Roete</string>
+    <string name="route_placeholder">Roetebesonderhede sal hier verskyn</string>
+    <string name="recent_searches">Onlangse Soektogte</string>
+
+    <string name="enter_both">Voer albei plekke in</string>
+    <string name="no_result_start">Kon nie beginplek vind nie</string>
+    <string name="no_result_end">Kon nie bestemming vind nie</string>
+    <string name="route_summary">%1$.2f km • %2$.1f min</string>
+
+    <string name="search_by_city">Soek volgens stad</string>
+    <string name="no_trips_found">Geen reise gevind nie</string>
+    <string name="failed_load_trips">Kon nie reise laai nie</string>
+    <string name="RECENT">Onlangse reise</string>
+
+    <!-- Weerblad -->
+    <string name="weather_info_title">Weer Inligting</string>
+    <string name="enter_city">Voer stad in</string>
+    <string name="check_weather">Kontroleer Weer</string>
+    <string name="weather_placeholder">Weerbesonderhede sal hier verskyn</string>
+
+    <string name="offline_mode_title">Vanlynmodus</string>
+    <string name="clear_offline_data">Vee alle vanlyn data uit</string>
+    <string name="offline_info">Vanlyn weerdata sal hieronder verskyn</string>
+    <string name="weather_details">Weerbesonderhede</string>
+
+    <!-- Voorbeeld Weerdata -->
+    <string name="jhb_weather">Johannesburg - 25°C, Helder</string>
+    <string name="dbn_weather">Durban - 28°C, Bewolk</string>
+    <string name="cpt_weather">Kaapstad - 18°C, Windig</string>
+
+    <!-- Foutboodskappe -->
+    <string name="invalid_coords">Ongeldige koördinate</string>
+</resources>

@@ -10,11 +10,13 @@
     <string-array name="languages">
         <item>English</item>
         <item>Zulu</item>
+        <item>Afrikaans</item>
 
 
 
     </string-array>
     <string name="invalid_coords">Invalid coordinates</string>
+    <string name="default_web_client_id">262856998059-6svhjpfm76k38rg76b4qq676tv1t1n92.apps.googleusercontent.com</string>
 
     <string name="settings_title">Settings</string>
     <string name="dark_mode">Dark Mode</string>
@@ -61,6 +63,11 @@
     <string name="enter_city">Enter City</string>
     <string name="check_weather">Check Weather</string>
     <string name="weather_placeholder">Weather details will appear here</string>
+
+    <string name="offline_mode_title">Offline Mode</string>
+    <string name="clear_offline_data">Clear All Offline Data</string>
+    <string name="offline_info">Offline weather data will appear below</string>
+    <string name="weather_details">Weather Details</string>
 
 
     <!-- Example Weather Results -->

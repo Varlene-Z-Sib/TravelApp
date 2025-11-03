@@ -12,7 +12,20 @@
           "package_name": "vcmsa.projects.travelapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "262856998059-77ukucqqs938icqfha3fknakpmngdse0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vcmsa.projects.travelapp",
+            "certificate_hash": "2d9e231809d1504349796a0b6407dca1d41df12d"
+          }
+        },
+        {
+          "client_id": "262856998059-6svhjpfm76k38rg76b4qq676tv1t1n92.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBlVwZjy7i6bZpWql5bFvb6-vxDPDXen2k"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262856998059-63g9be3j0u7jsf8a64m73b8grt0eoi5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -12,10 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         android:theme="@style/ThemeOverlay.MaterialComponents.ActionBar"
-
-    app:titleCentered="true"
-    app:navigationIcon="@drawable/ic_travel_logo"
-                                                                                                        />
+        app:titleCentered="true"
+        app:navigationIcon="@drawable/ic_travel_logo" />
 
     <!-- MAIN CONTENT -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,6 +68,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="24dp"/>
 
+        <!-- 🆕 GOOGLE SIGN-IN BUTTON -->
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/btnGoogleSignIn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/signInBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
+
         <TextView
             android:id="@+id/goToSignUp"
             android:layout_width="wrap_content"
@@ -77,7 +85,7 @@
             android:text="Don’t have an account? Sign Up"
             android:textSize="14sp"
             android:textColor="@color/secondaryColor"
-            app:layout_constraintTop_toBottomOf="@id/signInBtn"
+            app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="16dp"/>
 

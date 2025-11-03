@@ -31,6 +31,7 @@
     <string-array name="languages">
         <item>IsiNgisi</item>
         <item>IsiZulu</item>
+        <item>Afrikaans</item>
 
     </string-array>
     <string name="invalid_coords">Izixhumanisi ezingavumelekile</string>
@@ -45,6 +46,11 @@
     <string name="weather_info">☀️ Ulwazi Lwesimo Sezulu</string>
     <string name="trip_history">📖 Umlando Wokuhamba</string>
     <string name="offline_mode">📶 Imodi Engaxhunyiwe</string>
+
+    <string name="offline_mode_title">Imodi Engaxhunyiwe</string>
+    <string name="clear_offline_data">Sula Idatha Yonke Engaxhunyiwe</string>
+    <string name="offline_info">Idatha yesimo sezulu engaxhunyiwe izovela ngezansi</string>
+    <string name="weather_details">Imininingwane Yesimo Sezulu</string>
 
     <string name="startPoint" type="id">indawoYokuqala</string>
     <string name="endPoint" type="id">indawoYokugcina</string>

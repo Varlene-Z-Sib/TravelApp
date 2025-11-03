@@ -25,7 +25,6 @@ class SettingsFragment : Fragment() {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private lateinit var sharedPrefs: SharedPreferences
 
-    // Flag to prevent spinner firing during initialization
     private var isSpinnerInitialized = false
 
     override fun onCreateView(
@@ -34,10 +33,8 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         sharedPrefs = requireContext().getSharedPreferences("user_settings", Context.MODE_PRIVATE)
-
         val view = inflater.inflate(R.layout.fragment_settings, container, false)
 
-        // Views
         tvName = view.findViewById(R.id.tvUserName)
         tvEmail = view.findViewById(R.id.tvUserEmail)
         switchDarkMode = view.findViewById(R.id.switchDarkMode)
@@ -67,15 +64,14 @@ class SettingsFragment : Fragment() {
         switchDarkMode.isChecked = darkModeEnabled
         switchNotifications.isChecked = notificationsEnabled
 
-        // Restore spinner language selection
-        val languageArray = resources.getStringArray(R.array.languages)
+        // updated to handle Afrikaans
         val langIndex = when (selectedLanguage) {
-            "zu" -> 1 // Zulu
-            else -> 0 // English
+            "zu" -> 1
+            "af" -> 2
+            else -> 0
         }
-        if (langIndex >= 0) {
-            spinnerLanguage.setSelection(langIndex)
-        }
+
+        spinnerLanguage.setSelection(langIndex)
     }
 
     private fun setupListeners() {
@@ -89,11 +85,16 @@ class SettingsFragment : Fragment() {
 
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             sharedPrefs.edit().putBoolean("notifications", isChecked).apply()
-            Toast.makeText(
-                requireContext(),
-                if (isChecked) "Notifications enabled" else "Notifications disabled",
-                Toast.LENGTH_SHORT
-            ).show()
+            val mainActivity = requireActivity() as MainActivity
+
+            if (isChecked) {
+                mainActivity.scheduleWeatherWorker()
+                mainActivity.triggerTestNotification()
+                Toast.makeText(requireContext(), "Notifications enabled", Toast.LENGTH_SHORT).show()
+            } else {
+                mainActivity.cancelWeatherWorker()
+                Toast.makeText(requireContext(), "Notifications disabled", Toast.LENGTH_SHORT).show()
+            }
         }
 
         spinnerLanguage.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -108,16 +109,17 @@ class SettingsFragment : Fragment() {
                     return
                 }
 
+                // Updated for Afrikaans
                 val selectedLang = when (position) {
-                    0 -> "en"
                     1 -> "zu"
+                    2 -> "af"
                     else -> "en"
                 }
 
                 val currentLang = sharedPrefs.getString("language", "en")
                 if (currentLang != selectedLang) {
                     sharedPrefs.edit().putString("language", selectedLang).apply()
-                    requireActivity().recreate() // Reload activity, MainActivity reapplies locale
+                    requireActivity().recreate()
                 }
             }
 

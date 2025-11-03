@@ -15,7 +15,11 @@ interface CachedWeatherDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCachedWeather(weather: CachedWeather): Long
-    
+
+    @Query("SELECT * FROM cached_weather WHERE locationName = :cityName ORDER BY cachedAt DESC LIMIT 1")
+    suspend fun getCachedWeatherByName(cityName: String): CachedWeather?
+
+
     @Delete
     suspend fun deleteCachedWeather(weather: CachedWeather)
     

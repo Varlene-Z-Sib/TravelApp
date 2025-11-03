@@ -39,15 +39,33 @@ class WeatherRepository(
             cached?.let { convertToWeatherResponse(it) }
         }
     }
-    
+
     suspend fun getWeatherByCity(cityName: String, forceRefresh: Boolean = false): WeatherResponse? {
         return try {
-            weatherApi.getWeatherByCity(cityName, apiKey)
+            // If not forcing refresh, try to load from cache first
+            if (!forceRefresh) {
+                val cached = cachedWeatherDao.getCachedWeatherByName(cityName)
+                if (cached != null && isCacheValid(cached.cachedAt)) {
+                    return convertToWeatherResponse(cached)
+                }
+            }
+
+            // Fetch from API if online
+            val response = weatherApi.getWeatherByCity(cityName, apiKey)
+
+            // Cache the API result
+            val coord = response.coord
+            cacheWeather(response, coord.lat, coord.lon, "current")
+
+            response
         } catch (e: Exception) {
-            null
+            // If offline or API fails — return cached data if available
+            val cached = cachedWeatherDao.getCachedWeatherByName(cityName)
+            cached?.let { convertToWeatherResponse(it) }
         }
     }
-    
+
+
     private suspend fun cacheWeather(response: WeatherResponse, lat: Double, lng: Double, type: String) {
         val cached = CachedWeather(
             locationName = response.name,
