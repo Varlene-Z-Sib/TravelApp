@@ -313,10 +313,6 @@ Educational project - IIE MSA 2025
 
 For setup issues, see [SETUP_GUIDE.md](SETUP_GUIDE.md)
 
-For API documentation:
-- [Google Maps](https://developers.google.com/maps/documentation)
-- [OpenWeatherMap](https://openweathermap.org/api)
-- [Firebase](https://firebase.google.com/docs)
 
 ---
 
